@@ -13,6 +13,20 @@ describe('Suite', function() {
     env.clearInterval = fakeTimer.clearInterval;
   });
 
+  describe("description", function () {
+    it("is the string passed to describe", function () {
+      expect(env.describe('Suite', function(){}).description).toEqual('Suite');
+    });
+
+    it("is the name of the function passed to describe", function () {
+      expect(env.describe(String, function(){}).description).toEqual("String");
+    });
+
+    it("is the object passed to describe cast to a string", function () {
+      expect(env.describe(1, function(){}).description).toEqual("1");
+    })
+  });
+
   describe('Specs', function () {
     it('#specs should return all immediate children that are specs.', function () {
       var suite =env.describe('Suite 1', function () {

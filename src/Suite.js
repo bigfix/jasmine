@@ -10,7 +10,13 @@
 jasmine.Suite = function(env, description, specDefinitions, parentSuite) {
   var self = this;
   self.id = env.nextSuiteId ? env.nextSuiteId() : null;
-  self.description = description;
+  if (typeof(description) === 'function' && description.name !== jasmine.undefined) {
+    self.description = description.name;
+  } else if (typeof(description) !== 'string') {
+    self.description = '' + description;
+  } else {
+    self.description = description;
+  }
   self.queue = new jasmine.Queue(env);
   self.parentSuite = parentSuite;
   self.env = env;
